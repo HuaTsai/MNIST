@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
 
   auto parser = unique_ptr<nvonnxparser::IParser>(
       nvonnxparser::createParser(*network, logger));
-  std::string file_path = "mnist_sim.onnx";
+  std::string file_path = "mnist.onnx";
   parser->parseFromFile(file_path.c_str(),
                         static_cast<int32_t>(ILogger::Severity::kWARNING));
 

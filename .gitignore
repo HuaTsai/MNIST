@@ -1,0 +1,6 @@
+MNIST/raw
+MNIST/images*
+*.onnx
+*.pth
+*.engine
+a.out

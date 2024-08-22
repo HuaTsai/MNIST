@@ -54,7 +54,9 @@ for epoch in range(20):
 
         running_loss += loss.item()
         if i % 100 == 99:
-            print("[{:d},{:4d}] loss :{:.3f}".format(epoch + 1, i + 1, running_loss / 100))
+            print(
+                "[{:d},{:4d}] loss :{:.3f}".format(epoch + 1, i + 1, running_loss / 100)
+            )
             running_loss = 0.0
 
         correct = 0

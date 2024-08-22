@@ -2,6 +2,10 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+# Optional: Simplify the model
+# import onnx
+# import onnxsim
+
 
 class CNN(nn.Module):
     def __init__(self):
@@ -24,11 +28,23 @@ class CNN(nn.Module):
 
 
 net = CNN()
-net.load_state_dict(torch.load("mnist.pth"))
+net.load_state_dict(torch.load("mnist.pth", weights_only=True))
 net.eval()
 
 torch_input = torch.randn(1, 1, 28, 28)
-onnx_program = torch.onnx.export(net, torch_input, "mnist.onnx", export_params=True)
+onnx_program = torch.onnx.export(
+    net,
+    torch_input,
+    "mnist.onnx",
+    export_params=True,
+    input_names=["input"],
+    output_names=["output"],
+)
 
 print("Save the model to mnist.onnx")
 
+# model = onnx.load("mnist.onnx")
+# model_sim, check = onnxsim.simplify(model)
+# onnx.save(model_sim, "mnist_sim.onnx")
+#
+# print("Save the simplified model to mnist_sim.onnx")

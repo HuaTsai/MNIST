@@ -47,11 +47,11 @@ int main(int argc, char **argv) {
   auto context =
       unique_ptr<IExecutionContext>(engine->createExecutionContext());
 
-  auto idims = engine->getTensorShape("input.1");
-  auto odims = engine->getTensorShape("23");
+  auto idims = engine->getTensorShape("input");
+  auto odims = engine->getTensorShape("output");
   Dims4 inputDims = {1, idims.d[1], idims.d[2], idims.d[3]};
   Dims2 outputDims = {1, 10};
-  context->setInputShape("input.1", inputDims);
+  context->setInputShape("input", inputDims);
 
   void *buffers[2];
   const int inputIndex = 0;
@@ -60,8 +60,8 @@ int main(int argc, char **argv) {
   cudaMalloc(&buffers[inputIndex], 1 * 28 * 28 * sizeof(float));
   cudaMalloc(&buffers[outputIndex], 10 * sizeof(float));
 
-  context->setTensorAddress("input.1", buffers[inputIndex]);
-  context->setTensorAddress("23", buffers[outputIndex]);
+  context->setTensorAddress("input", buffers[inputIndex]);
+  context->setTensorAddress("output", buffers[outputIndex]);
 
   cudaStream_t stream;
   cudaStreamCreate(&stream);

@@ -14,15 +14,23 @@ class Logger : public ILogger {
   }
 };
 
-std::vector<unsigned char> load_engine_file(const std::string &file_name) {
-  std::vector<unsigned char> engine_data;
-  std::ifstream engine_file(file_name, std::ios::binary | std::ios::ate);
-  assert(engine_file.is_open() && "Unable to load engine file.");
-  int length = engine_file.tellg();
-  engine_data.resize(length);
-  engine_file.seekg(0, engine_file.beg);
-  engine_file.read(reinterpret_cast<char *>(engine_data.data()), length);
-  return engine_data;
+std::vector<uint8_t> load_engine_file(const std::string &file_name) {
+  std::ifstream file(file_name, std::ios::binary | std::ios::ate);
+  if (!file) {
+    throw std::runtime_error("Unable to open file: " + file_name);
+  }
+
+  std::streamsize size = file.tellg();
+  if (size <= 0) {
+    throw std::runtime_error("Invalid file size: " + file_name);
+  }
+
+  std::vector<uint8_t> ret(static_cast<size_t>(size));
+  file.seekg(0, std::ios::beg);
+  if (!file.read(reinterpret_cast<char *>(ret.data()), size)) {
+    throw std::runtime_error("Error read file: " + file_name);
+  }
+  return ret;
 }
 
 int softmax(const float (&rst)[10]) {

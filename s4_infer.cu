@@ -4,7 +4,6 @@
 #include <bits/stdc++.h>
 #include <opencv2/opencv.hpp>
 
-using namespace std;
 using namespace nvinfer1;
 
 class Logger : public ILogger {

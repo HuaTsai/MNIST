@@ -2,6 +2,15 @@
 
 Reference: https://github.com/cyberyang123/Learning-TensorRT
 
+## Training Steps
+
+```bash
+uv sync
+uv run python s1_train.py
+```
+
+
+
 1. Train the model `python s1_train.py`
 2. Export onnx file `python s2_export.py`
     - Optional: simplify model `python -m onnxsim mnist.onnx mnist_sim.onnx` (no effect in this example)

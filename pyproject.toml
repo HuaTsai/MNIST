@@ -1,0 +1,19 @@
+[project]
+name = "mnist"
+version = "0.1.0"
+description = "MNIST digit classification models"
+authors = [{ name = "HuaTsai", email = "huatsai42@gmail.com" }]
+license = { text = "MIT License" }
+readme = "README.md"
+requires-python = ">=3.10,<3.12"
+dependencies = ["onnxsim>=0.4.36", "torchvision>=0.24.0"]
+
+[project.urls]
+Repository = "https://github.com/HuaTsai/MNIST.git"
+
+[tool.ruff]
+line-length = 100
+lint.extend-select = ["E", "W", "F", "I", "C", "B", "N", "UP"]
+
+[tool.ruff.format]
+quote-style = "double"
